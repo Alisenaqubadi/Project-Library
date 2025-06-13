@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Library</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="nav">
+        <h1>Wolcome to Library</h1>
+        <button id="new-book" data-open-modal >Register a new book</button>
+    </div>
+    <div class="book-lib">
+        <div class="lib">
+            
+        </div>
+    </div>
+
+    <dialog data-modal>
+        <form>
+            <fieldset>
+                <label for="title">Title</label>
+                <input type="text"  id="title" required>
+                <label for="author">Author</label>
+                <input type="text"  id="author" required>
+                <label for="pages">Pages</label>
+                <input type="text"  id="pages" required>
+                <div class="checkbox">
+                    <label for="read" class="read">Have you read it</label>
+                <input type="checkbox" id="read">
+                </div>
+            </fieldset>
+            <button data-close-modal class="formbutton">Cancel</button>
+            <button type="submit" class="formbutton">Save</button>
+        </form>
+    </dialog>
+<script src="index.js"></script>
+</body>
+</html>
