@@ -56,7 +56,7 @@ button {
 
 dialog {
     height: 60vh;
-    width: 60vw;
+    width: min(60vw, 445px);
     padding: 2rem;
     margin: auto;
     background-color: black;
@@ -70,7 +70,6 @@ fieldset {
     margin: auto;
     border: 0;
     height: 40vh;
-    width: 40vw;
     display: grid;
 }
 
@@ -155,5 +154,11 @@ label {
 
 .formbutton {
     height: 40px;
-    margin-left: 26%;
+    margin-left: 22.5%;
+}
+
+@media screen and (max-width: 980px) {
+    #new-book {
+        font-size: 11px;
+    }
 }
