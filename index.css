@@ -207,7 +207,7 @@ label {
     }
 }
 
-@media screen and (max-width: 910px) .
+@media screen and (max-width: 910px) {
     h2 {
         font-size: 20px;
     }

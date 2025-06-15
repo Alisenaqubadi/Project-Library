@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 const openButton = document.querySelector("[data-open-modal]");
 const closeButton = document.querySelector("[data-close-modal]");
 const modal = document.querySelector("[data-modal]");
@@ -9,7 +9,6 @@ const read = document.getElementById("read");
 const form = document.querySelector("form");
 const savebutton = document.getElementById('savebutton');
 const lib = document.getElementById("lib");
-let num = 1;
 
 function Book(title,author,pages,read)
 {
@@ -20,23 +19,25 @@ function Book(title,author,pages,read)
     this.read = read
 };
 
-
 function pushtolib(title,author,pages,read) 
 {
   const book = new Book(title,author,pages,read);
   myLibrary.push(book);
+  return book; // Return the book object for use in printlib
 };
 
-function printlib(newTitle,newAuthor,newPages,isRead){
+function printlib(newTitle,newAuthor,newPages,isRead,bookId){
     const div = document.createElement("div");
     const h2title = document.createElement("h2");
     const h2author = document.createElement("h2");
     const h2page = document.createElement("h2");
     const h2read = document.createElement("h2");
     const checkbox = document.createElement("input");
+    const delbutton = document.createElement("button");
 
     checkbox.type = "checkbox";
-    div.classList.add("book", `book-${num}`);
+    div.classList.add("book");
+    div.dataset.bookId = bookId; // Store book id for reference
     h2title.classList.add("h2title");
     h2author.classList.add("h2author");
     h2page.classList.add("h2page");
@@ -48,13 +49,30 @@ function printlib(newTitle,newAuthor,newPages,isRead){
     h2page.innerText = `Pages: ${newPages}`;
     h2read.innerText = `Read?`
     checkbox.checked = isRead;
+
+    delbutton.className = "delete";
+    delbutton.innerText = "Delete button";
+    delbutton.addEventListener("click", function() {
+        RemoveBook(bookId);
+    });
+
     lib.appendChild(div);
     div.appendChild(h2title);
     div.appendChild(h2author);
     div.appendChild(h2page);
     div.appendChild(h2read);
     div.appendChild(checkbox);
-    num++
+    div.appendChild(delbutton);
+}
+
+function RemoveBook(bookId) {
+    // Remove from DOM
+    const bookDiv = document.querySelector(`.book[data-book-id='${bookId}']`);
+    if (bookDiv) {
+        bookDiv.remove();
+    }
+    // Remove from myLibrary using filter
+    myLibrary = myLibrary.filter(book => book.id !== bookId);
 }
 
 openButton.addEventListener("click", () => {
@@ -73,10 +91,10 @@ form.addEventListener("submit" , (e) => {
     const newPages = pages.value;
     const isRead = read.checked;
 
-    pushtolib(newTitle,newAuthor,newPages,isRead);
+    const book = pushtolib(newTitle,newAuthor,newPages,isRead);
 
     form.reset();
     modal.close();
 
-    printlib(newTitle,newAuthor,newPages,isRead);
+    printlib(newTitle,newAuthor,newPages,isRead,book.id);
 })
