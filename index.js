@@ -10,14 +10,15 @@ const form = document.querySelector("form");
 const savebutton = document.getElementById('savebutton');
 const lib = document.getElementById("lib");
 
-function Book(title,author,pages,read)
-{
+class Book{
+    constructor(title,author,pages,read){
     this.id = crypto.randomUUID() ,
     this.title = title ,
     this.author = author ,
     this.pages = pages ,
     this.read = read
-};
+    }
+}
 
 function pushtolib(title,author,pages,read) 
 {
@@ -98,3 +99,4 @@ form.addEventListener("submit" , (e) => {
 
     printlib(newTitle,newAuthor,newPages,isRead,book.id);
 })
+
